@@ -445,23 +445,25 @@
             align-items: center;
             justify-content: center;
             padding: 40px;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background: var(--primary-bg);
+            overflow-y: auto;
         }
 
         .welcome-container {
             max-width: 1200px;
             width: 100%;
             text-align: center;
+            margin: auto;
         }
 
         .welcome-header {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .welcome-title {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 800;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -470,9 +472,9 @@
         }
 
         .welcome-subtitle {
-            font-size: 22px;
+            font-size: 18px;
             color: var(--text-secondary);
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
             line-height: 1.6;
         }
@@ -480,15 +482,15 @@
         .example-prompts {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
             margin-top: 20px;
         }
 
         .example-prompt {
             background: var(--secondary-bg);
             border: 2px solid var(--border-color);
-            border-radius: 20px;
-            padding: 32px 28px;
+            border-radius: 16px;
+            padding: 24px 20px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
@@ -496,28 +498,28 @@
 
         .example-prompt:hover {
             border-color: var(--accent-color);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 32px rgba(59, 130, 246, 0.3);
-            background: linear-gradient(135deg, var(--secondary-bg) 0%, #1e3a5f 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.3);
+            background: var(--secondary-bg);
         }
 
         .example-prompt-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 40px;
+            margin-bottom: 16px;
             display: block;
         }
 
         .example-prompt-title {
             font-weight: 700;
-            margin-bottom: 12px;
-            font-size: 18px;
+            margin-bottom: 10px;
+            font-size: 16px;
             color: var(--text-primary);
         }
 
         .example-prompt-text {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         /* Mobile responsive */

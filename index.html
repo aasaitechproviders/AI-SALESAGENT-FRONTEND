@@ -31,7 +31,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: var(--primary-bg);
             color: var(--text-primary);
             height: 100vh;
             overflow: hidden;
@@ -109,29 +109,6 @@
             flex: 1;
             overflow-y: auto;
             padding: 12px;
-        }
-
-        .chat-item {
-            padding: 14px 16px;
-            margin: 6px 0;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            border: 1px solid transparent;
-        }
-
-        .chat-item:hover {
-            background: var(--sidebar-hover);
-            border-color: var(--border-color);
-        }
-
-        .chat-item.active {
-            background: var(--sidebar-hover);
-            border-left: 3px solid var(--accent-color);
         }
 
         .sidebar-footer {
@@ -332,47 +309,6 @@
             font-weight: 600;
         }
 
-        .message-meta {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .confidence-badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .confidence-high {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--success-color);
-        }
-
-        .confidence-medium {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--warning-color);
-        }
-
-        .confidence-low {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger-color);
-        }
-
-        .quality-badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            background: rgba(99, 102, 241, 0.15);
-            color: #6366f1;
-        }
-
         .typing-indicator {
             background: var(--secondary-bg);
             padding: 18px;
@@ -414,7 +350,7 @@
         }
 
         .chat-input-container {
-            padding: 24px 32px;
+            padding: 24px 32px 28px;
             border-top: 1px solid var(--border-color);
             background: var(--secondary-bg);
         }
@@ -473,75 +409,6 @@
             transform: none;
         }
 
-        .welcome-screen {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 40px;
-            text-align: center;
-        }
-
-        .welcome-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent-color), #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .welcome-subtitle {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin-bottom: 60px;
-            max-width: 700px;
-            line-height: 1.6;
-        }
-
-        .example-prompts {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            width: 100%;
-        }
-
-        .example-prompt {
-            background: var(--secondary-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: left;
-        }
-
-        .example-prompt:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(59, 130, 246, 0.25);
-        }
-
-        .example-prompt-icon {
-            font-size: 36px;
-            margin-bottom: 14px;
-        }
-
-        .example-prompt-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 17px;
-        }
-
-        .example-prompt-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
         .status-indicator {
             display: flex;
             align-items: center;
@@ -571,22 +438,95 @@
             }
         }
 
-        .metrics-display {
+        /* Welcome Screen Styles */
+        .welcome-screen {
+            flex: 1;
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
         }
 
-        .metric-item {
-            padding: 4px 10px;
-            background: rgba(59, 130, 246, 0.1);
-            border-radius: 8px;
-            font-size: 11px;
+        .welcome-container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .welcome-header {
+            margin-bottom: 60px;
+        }
+
+        .welcome-title {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .welcome-subtitle {
+            font-size: 22px;
             color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .example-prompts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .example-prompt {
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px 28px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .example-prompt:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, var(--secondary-bg) 0%, #1e3a5f 100%);
+        }
+
+        .example-prompt-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .example-prompt-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .example-prompt-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         /* Mobile responsive */
+        @media (max-width: 1024px) {
+            .example-prompts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: fixed;
@@ -613,6 +553,16 @@
 
             .example-prompts {
                 grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .example-prompt {
+                padding: 24px 20px;
+            }
+
+            .example-prompt-icon {
+                font-size: 40px;
+                margin-bottom: 16px;
             }
 
             .chat-messages {
@@ -657,42 +607,46 @@
             </div>
 
             <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-title">Welcome to Aasai! 👋</div>
-                <div class="welcome-subtitle">
-                    Your intelligent sales consultant for the Aasai RAG Platform.<br>
-                    Ask me anything about features, pricing, demos, or implementation.
-                </div>
-                
-                <div class="example-prompts">
-                    <div class="example-prompt" data-prompt="What is Aasai RAG Platform and how is it different from other AI chatbots?">
-                        <div class="example-prompt-icon">🚀</div>
-                        <div class="example-prompt-title">Platform Overview</div>
-                        <div class="example-prompt-text">Learn what makes Aasai unique</div>
+                <div class="welcome-container">
+                    <div class="welcome-header">
+                        <div class="welcome-title">Welcome to Aasai! 👋</div>
+                        <div class="welcome-subtitle">
+                            Your intelligent sales consultant for the Aasai RAG Platform.<br>
+                            Ask me anything about features, pricing, demos, or implementation.
+                        </div>
                     </div>
-                    <div class="example-prompt" data-prompt="What are the key features of Aasai? Tell me about the router-based intelligence and cost optimization.">
-                        <div class="example-prompt-icon">⚙️</div>
-                        <div class="example-prompt-title">Key Features</div>
-                        <div class="example-prompt-text">Explore Aasai's capabilities</div>
-                    </div>
-                    <div class="example-prompt" data-prompt="What is the pricing for schools and colleges? Tell me about the student plan.">
-                        <div class="example-prompt-icon">💰</div>
-                        <div class="example-prompt-title">Pricing Details</div>
-                        <div class="example-prompt-text">Get transparent pricing info</div>
-                    </div>
-                    <div class="example-prompt" data-prompt="How does Aasai ensure security and compliance? Can you explain the backend-controlled data access?">
-                        <div class="example-prompt-icon">🔒</div>
-                        <div class="example-prompt-title">Security & Compliance</div>
-                        <div class="example-prompt-text">Understand our security model</div>
-                    </div>
-                    <div class="example-prompt" data-prompt="How scalable is Aasai? Can it handle millions of students?">
-                        <div class="example-prompt-icon">📈</div>
-                        <div class="example-prompt-title">Scalability</div>
-                        <div class="example-prompt-text">Learn about scale capabilities</div>
-                    </div>
-                    <div class="example-prompt" data-prompt="I want to see a demo. How can we schedule one?">
-                        <div class="example-prompt-icon">🎯</div>
-                        <div class="example-prompt-title">Request Demo</div>
-                        <div class="example-prompt-text">Schedule a personalized demo</div>
+                    
+                    <div class="example-prompts">
+                        <div class="example-prompt" data-prompt="What is Aasai RAG Platform and how is it different from other AI chatbots?">
+                            <div class="example-prompt-icon">🚀</div>
+                            <div class="example-prompt-title">Platform Overview</div>
+                            <div class="example-prompt-text">Learn what makes Aasai unique</div>
+                        </div>
+                        <div class="example-prompt" data-prompt="What are the key features of Aasai? Tell me about the router-based intelligence and cost optimization.">
+                            <div class="example-prompt-icon">⚙️</div>
+                            <div class="example-prompt-title">Key Features</div>
+                            <div class="example-prompt-text">Explore Aasai's capabilities</div>
+                        </div>
+                        <div class="example-prompt" data-prompt="What is the pricing for schools and colleges? Tell me about the student plan.">
+                            <div class="example-prompt-icon">💰</div>
+                            <div class="example-prompt-title">Pricing Details</div>
+                            <div class="example-prompt-text">Get transparent pricing info</div>
+                        </div>
+                        <div class="example-prompt" data-prompt="How does Aasai ensure security and compliance? Can you explain the backend-controlled data access?">
+                            <div class="example-prompt-icon">🔒</div>
+                            <div class="example-prompt-title">Security & Compliance</div>
+                            <div class="example-prompt-text">Understand our security model</div>
+                        </div>
+                        <div class="example-prompt" data-prompt="How scalable is Aasai? Can it handle millions of students?">
+                            <div class="example-prompt-icon">📈</div>
+                            <div class="example-prompt-title">Scalability</div>
+                            <div class="example-prompt-text">Learn about scale capabilities</div>
+                        </div>
+                        <div class="example-prompt" data-prompt="I want to see a demo. How can we schedule one?">
+                            <div class="example-prompt-icon">🎯</div>
+                            <div class="example-prompt-title">Request Demo</div>
+                            <div class="example-prompt-text">Schedule a personalized demo</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -724,15 +678,23 @@
         // ⚠️ IMPORTANT: Replace with your actual Lambda API endpoint
         const API_URL = 'https://yemexr3ibd.execute-api.ap-southeast-2.amazonaws.com/default/gemini-conversational-salesagent-aasaitech';
         
-        // Fixed model - using Gemini 2.0 Flash (fast and cost-effective)
-        const MODEL = 'gemini-2.0-flash-exp';
+        // ===== MODEL CONFIGURATION =====
+        // Choose your model based on your needs:
+        // 
+        // Recommended models (Dec 2024):
+        // - 'gemini-2.0-flash-exp'      - Fast, experimental, good for production
+        // - 'gemini-1.5-flash'          - Stable, reliable, cost-effective
+        // - 'gemini-1.5-flash-8b'       - Lightest/cheapest, very fast (if "lite" version)
+        // - 'gemini-1.5-pro'            - Most capable, expensive
+        // 
+        // Currently using:
+        const MODEL = 'gemini-1.5-flash-8b';
+        // ===== END MODEL CONFIGURATION =====
         
         // State management
         let conversationHistory = [];
         let currentSessionId = generateSessionId();
         let isTyping = false;
-        let totalTokensUsed = 0;
-        let totalCost = 0;
 
         // DOM Elements
         const messageInput = document.getElementById('messageInput');
@@ -799,9 +761,6 @@
             try {
                 updateStatus('Processing your request...', 'loading');
 
-                console.log('Sending request to:', API_URL);
-                console.log('Session ID:', currentSessionId);
-
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: {
@@ -817,8 +776,6 @@
                     })
                 });
 
-                console.log('Response status:', response.status);
-
                 hideTypingIndicator();
 
                 if (!response.ok) {
@@ -828,7 +785,6 @@
                 }
 
                 const data = await response.json();
-                console.log('Response data:', data);
 
                 if (data.success) {
                     const assistantMessage = {
@@ -846,15 +802,7 @@
                     conversationHistory.push(assistantMessage);
                     displayMessage(assistantMessage);
 
-                    // Update metrics
-                    if (data.metadata.tokens) {
-                        totalTokensUsed += data.metadata.tokens.total;
-                    }
-                    if (data.metadata.cost) {
-                        totalCost += data.metadata.cost.total;
-                    }
-
-                    updateStatus('Response in ' + data.metadata.duration + 'ms • Quality: ' + data.quality + '/100', 'success');
+                    updateStatus('Response received', 'success');
                 } else {
                     throw new Error(data.error || 'Failed to get response');
                 }
@@ -866,7 +814,7 @@
                 const errorMessage = {
                     id: generateId(),
                     role: 'assistant',
-                    content: '<div><h3>❌ Error</h3><p>Sorry, I encountered an error: ' + escapeHtml(error.message) + '</p><p>Please check your API configuration and try again.</p></div>',
+                    content: '<div><h3>❌ Error</h3><p>Sorry, I encountered an error. Please try again.</p></div>',
                     timestamp: new Date().toISOString(),
                     confidence: 0,
                     quality: 0,
@@ -875,7 +823,7 @@
                 };
 
                 displayMessage(errorMessage);
-                updateStatus('Error: ' + error.message, 'error');
+                updateStatus('Error occurred', 'error');
             }
         }
 
@@ -891,68 +839,10 @@
                     '</div>' +
                     '<div class="message-avatar">U</div>';
             } else {
-                let confidenceClass = 'confidence-low';
-                let confidenceText = 'Low';
-                
-                if (message.confidence >= 0.8) {
-                    confidenceClass = 'confidence-high';
-                    confidenceText = 'High';
-                } else if (message.confidence >= 0.5) {
-                    confidenceClass = 'confidence-medium';
-                    confidenceText = 'Medium';
-                }
-
-                let metricsHtml = '';
-                if (message.metadata) {
-                    const metrics = [];
-                    
-                    if (message.metadata.duration) {
-                        metrics.push('⚡ ' + message.metadata.duration + 'ms');
-                    }
-                    
-                    if (message.metadata.tokens && message.metadata.tokens.total) {
-                        metrics.push('🎯 ' + message.metadata.tokens.total + ' tokens');
-                    }
-                    
-                    if (message.metadata.cost && message.metadata.cost.total > 0) {
-                        metrics.push('💰 $' + message.metadata.cost.total.toFixed(6));
-                    }
-                    
-                    if (metrics.length > 0) {
-                        metricsHtml = '<div class="metrics-display">' +
-                            metrics.map(function(m) { return '<span class="metric-item">' + m + '</span>'; }).join('') +
-                        '</div>';
-                    }
-                }
-
-                let metaHtml = '';
-                if (message.confidence !== undefined) {
-                    metaHtml = '<div class="message-meta">' +
-                        '<span class="confidence-badge ' + confidenceClass + '">' +
-                            '🎯 ' + confidenceText + ' (' + Math.round(message.confidence * 100) + '%)' +
-                        '</span>';
-                    
-                    if (message.quality !== undefined) {
-                        metaHtml += '<span class="quality-badge">' +
-                            '⭐ Quality: ' + message.quality + '/100' +
-                        '</span>';
-                    }
-                    
-                    if (message.cached) {
-                        metaHtml += '<span style="color: #10b981">🔋 Cached</span>';
-                    } else {
-                        metaHtml += '<span style="color: #f59e0b">🔄 Live</span>';
-                    }
-                    
-                    metaHtml += '</div>';
-                }
-
                 messageElement.innerHTML = 
                     '<div class="message-avatar">AI</div>' +
                     '<div class="message-content">' +
                         message.content +
-                        metaHtml +
-                        metricsHtml +
                     '</div>';
             }
 
@@ -1013,7 +903,7 @@
                 setTimeout(function() {
                     statusText.textContent = 'Ready to help';
                     statusDot.style.background = '#10b981';
-                }, 4000);
+                }, 3000);
             }
         }
 
@@ -1038,8 +928,6 @@
             welcomeScreen.style.display = 'flex';
             messageInput.value = '';
             sendBtn.disabled = true;
-            totalTokensUsed = 0;
-            totalCost = 0;
             updateStatus('Ready to help', 'normal');
         }
 
@@ -1052,9 +940,6 @@
         // Initialization
         window.addEventListener('load', function() {
             console.log('Aasai Sales Agent Loaded');
-            console.log('API URL:', API_URL);
-            console.log('Model:', MODEL);
-            console.log('Session ID:', currentSessionId);
             updateStatus('Ready to help', 'normal');
         });
 

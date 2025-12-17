@@ -835,7 +835,7 @@
                 if (!response.ok) {
                     const errorText = await response.text();
                     console.error('Error response:', errorText);
-                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                    throw new Error('HTTP ' + response.status + ': ' + errorText);
                 }
 
                 const data = await response.json();
@@ -865,7 +865,7 @@
                         totalCost += data.metadata.cost.total;
                     }
 
-                    updateStatus(`Response in ${data.metadata.duration}ms • Quality: ${data.quality}/100`, 'success');
+                    updateStatus('Response in ' + data.metadata.duration + 'ms • Quality: ' + data.quality + '/100', 'success');
                 } else {
                     throw new Error(data.error || 'Failed to get response');
                 }
@@ -918,37 +918,51 @@
                     const metrics = [];
                     
                     if (message.metadata.duration) {
-                        metrics.push(`⚡ ${message.metadata.duration}ms`);
+                        metrics.push('⚡ ' + message.metadata.duration + 'ms');
                     }
                     
                     if (message.metadata.tokens && message.metadata.tokens.total) {
-                        metrics.push(`🎯 ${message.metadata.tokens.total} tokens`);
+                        metrics.push('🎯 ' + message.metadata.tokens.total + ' tokens');
                     }
                     
                     if (message.metadata.cost && message.metadata.cost.total > 0) {
-                        metrics.push(`💰 $${message.metadata.cost.total.toFixed(6)}`);
+                        metrics.push('💰 $' + message.metadata.cost.total.toFixed(6));
                     }
                     
                     if (metrics.length > 0) {
                         metricsHtml = '<div class="metrics-display">' +
-                            metrics.map(m => '<span class="metric-item">' + m + '</span>').join('') +
+                            metrics.map(function(m) { return '<span class="metric-item">' + m + '</span>'; }).join('') +
                         '</div>';
                     }
+                }
+
+                let metaHtml = '';
+                if (message.confidence !== undefined) {
+                    metaHtml = '<div class="message-meta">' +
+                        '<span class="confidence-badge ' + confidenceClass + '">' +
+                            '🎯 ' + confidenceText + ' (' + Math.round(message.confidence * 100) + '%)' +
+                        '</span>';
+                    
+                    if (message.quality !== undefined) {
+                        metaHtml += '<span class="quality-badge">' +
+                            '⭐ Quality: ' + message.quality + '/100' +
+                        '</span>';
+                    }
+                    
+                    if (message.cached) {
+                        metaHtml += '<span style="color: #10b981">🔋 Cached</span>';
+                    } else {
+                        metaHtml += '<span style="color: #f59e0b">🔄 Live</span>';
+                    }
+                    
+                    metaHtml += '</div>';
                 }
 
                 messageElement.innerHTML = 
                     '<div class="message-avatar">AI</div>' +
                     '<div class="message-content">' +
-                        message.content + // HTML content from backend
-                        (message.confidence !== undefined ? '<div class="message-meta">' +
-                            '<span class="confidence-badge ' + confidenceClass + '">' +
-                                '🎯 ' + confidenceText + ' (' + Math.round(message.confidence * 100) + '%)' +
-                            '</span>' +
-                            (message.quality !== undefined ? '<span class="quality-badge">' +
-                                '⭐ Quality: ' + message.quality + '/100' +
-                            '</span>' : '') +
-                            (message.cached ? '<span style="color: var(--success-color)">🔋 Cached</span>' : '<span style="color: var(--warning-color)">🔄 Live</span>') +
-                        '</div>' : '') +
+                        message.content +
+                        metaHtml +
                         metricsHtml +
                     '</div>';
             }
@@ -997,19 +1011,19 @@
             
             const statusDot = document.querySelector('.status-dot');
             if (type === 'loading') {
-                statusDot.style.background = var(--warning-color);
+                statusDot.style.background = '#f59e0b';
             } else if (type === 'error') {
-                statusDot.style.background = var(--danger-color);
+                statusDot.style.background = '#ef4444';
             } else if (type === 'success') {
-                statusDot.style.background = var(--success-color);
+                statusDot.style.background = '#10b981';
             } else {
-                statusDot.style.background = var(--success-color);
+                statusDot.style.background = '#10b981';
             }
 
             if (type !== 'normal') {
                 setTimeout(function() {
                     statusText.textContent = 'Ready to help';
-                    statusDot.style.background = var(--success-color);
+                    statusDot.style.background = '#10b981';
                 }, 4000);
             }
         }

@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduAI - Your Learning Assistant</title>
+    <title>Aasai Sales Agent - AI-Powered Sales Consultant</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
         }
 
         :root {
-            --primary-bg: #343541;
-            --secondary-bg: #40414f;
-            --user-bg: #343541;
-            --assistant-bg: #444654;
-            --input-bg: #40414f;
-            --border-color: #565869;
-            --text-primary: #ececf1;
-            --text-secondary: #c5c5d2;
-            --accent-color: #10a37f;
-            --accent-hover: #0d8a6b;
-            --danger-color: #f93a37;
-            --sidebar-bg: #202123;
-            --sidebar-hover: #2a2b32;
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --user-bg: #1e293b;
+            --assistant-bg: #334155;
+            --input-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --sidebar-bg: #0a0f1e;
+            --sidebar-hover: #1e293b;
         }
 
         body {
-            background-color: var(--primary-bg);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: var(--text-primary);
             height: 100vh;
             overflow: hidden;
@@ -41,7 +43,7 @@
         }
 
         .sidebar {
-            width: 260px;
+            width: 280px;
             background-color: var(--sidebar-bg);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -50,46 +52,81 @@
         }
 
         .sidebar-header {
-            padding: 16px;
+            padding: 20px;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .new-chat-btn {
             width: 100%;
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
             color: white;
             border: none;
-            padding: 12px 16px;
-            border-radius: 6px;
+            padding: 14px 18px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .new-chat-btn:hover {
-            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
 
         .chat-history {
             flex: 1;
             overflow-y: auto;
-            padding: 8px;
+            padding: 12px;
         }
 
         .chat-item {
-            padding: 12px 16px;
-            margin: 4px 0;
-            border-radius: 6px;
+            padding: 14px 16px;
+            margin: 6px 0;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
             font-size: 14px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            border: 1px solid transparent;
         }
 
         .chat-item:hover {
             background: var(--sidebar-hover);
+            border-color: var(--border-color);
         }
 
         .chat-item.active {
@@ -98,55 +135,117 @@
         }
 
         .sidebar-footer {
-            padding: 16px;
+            padding: 20px;
             border-top: 1px solid var(--border-color);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             font-size: 14px;
             color: var(--text-secondary);
+            padding: 12px;
+            background: var(--secondary-bg);
+            border-radius: 10px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
         }
 
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
+            background: var(--primary-bg);
         }
 
         .chat-header {
-            padding: 16px 20px;
+            padding: 20px 24px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: var(--secondary-bg);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
         .model-selector {
             background: var(--input-bg);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 12px;
+            border-radius: 8px;
+            padding: 10px 14px;
             color: var(--text-primary);
             font-size: 14px;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .model-selector:hover {
+            border-color: var(--accent-color);
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
         }
 
         .message {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             max-width: 100%;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .message.user {
@@ -158,88 +257,147 @@
         }
 
         .message-avatar {
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             flex-shrink: 0;
         }
 
         .message.user .message-avatar {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
             color: white;
         }
 
         .message.assistant .message-avatar {
-            background: var(--assistant-bg);
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
         }
 
         .message-content {
-            max-width: 80%;
+            max-width: 75%;
             background: var(--assistant-bg);
-            padding: 12px 16px;
-            border-radius: 12px;
-            line-height: 1.6;
+            padding: 16px 20px;
+            border-radius: 16px;
+            line-height: 1.7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .message.user .message-content {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
             color: white;
+        }
+
+        /* HTML content styling for assistant messages */
+        .message.assistant .message-content {
+            background: var(--secondary-bg);
+        }
+
+        .message.assistant .message-content h2,
+        .message.assistant .message-content h3,
+        .message.assistant .message-content h4 {
+            color: var(--accent-color);
+            margin-top: 16px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .message.assistant .message-content h2 {
+            font-size: 20px;
+        }
+
+        .message.assistant .message-content h3 {
+            font-size: 18px;
+        }
+
+        .message.assistant .message-content h4 {
+            font-size: 16px;
+        }
+
+        .message.assistant .message-content p {
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .message.assistant .message-content ul {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .message.assistant .message-content li {
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .message.assistant .message-content strong {
+            color: var(--accent-color);
+            font-weight: 600;
         }
 
         .message-meta {
             font-size: 12px;
             color: var(--text-secondary);
-            margin-top: 4px;
+            margin-top: 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .confidence-badge {
-            padding: 2px 6px;
-            border-radius: 10px;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 11px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .confidence-high {
-            background: rgba(16, 163, 127, 0.2);
-            color: #10a37f;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success-color);
         }
 
         .confidence-medium {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning-color);
         }
 
         .confidence-low {
-            background: rgba(249, 58, 55, 0.2);
-            color: #f93a37;
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger-color);
+        }
+
+        .quality-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(99, 102, 241, 0.15);
+            color: #6366f1;
         }
 
         .typing-indicator {
-            background: var(--assistant-bg);
-            padding: 16px;
-            border-radius: 12px;
+            background: var(--secondary-bg);
+            padding: 18px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .typing-dots {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             align-items: center;
         }
 
         .typing-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--text-secondary);
+            background: var(--accent-color);
             animation: typing 1.4s infinite;
         }
 
@@ -263,55 +421,63 @@
         }
 
         .chat-input-container {
-            padding: 20px;
+            padding: 24px;
             border-top: 1px solid var(--border-color);
+            background: var(--secondary-bg);
         }
 
         .chat-input-wrapper {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             align-items: flex-end;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         .message-input {
             flex: 1;
             background: var(--input-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px 18px;
             color: var(--text-primary);
-            font-size: 14px;
+            font-size: 15px;
             resize: none;
             max-height: 200px;
-            min-height: 44px;
+            min-height: 52px;
+            transition: all 0.2s;
         }
 
         .message-input:focus {
             outline: none;
             border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .send-btn {
-            background: var(--accent-color);
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: 500;
-            transition: background 0.2s;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .send-btn:hover:not(:disabled) {
-            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
         }
 
         .send-btn:disabled {
             background: var(--border-color);
             cursor: not-allowed;
             opacity: 0.5;
+            transform: none;
         }
 
         .welcome-screen {
@@ -325,83 +491,141 @@
         }
 
         .welcome-title {
-            font-size: 32px;
-            font-weight: 600;
+            font-size: 42px;
+            font-weight: 700;
             margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-color), #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .welcome-subtitle {
-            font-size: 18px;
+            font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 40px;
+            margin-bottom: 48px;
+            max-width: 600px;
         }
 
         .example-prompts {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
             width: 100%;
         }
 
         .example-prompt {
             background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             text-align: left;
         }
 
         .example-prompt:hover {
             border-color: var(--accent-color);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+        }
+
+        .example-prompt-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
         .example-prompt-title {
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 8px;
+            font-size: 16px;
         }
 
         .example-prompt-text {
             font-size: 14px;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 12px;
+            justify-content: center;
+            gap: 10px;
+            font-size: 13px;
             color: var(--text-secondary);
+            margin-top: 12px;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: var(--accent-color);
+            background: var(--success-color);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0%, 100% {
                 opacity: 1;
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
             }
             50% {
-                opacity: 0.5;
+                opacity: 0.8;
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
             }
         }
 
         .error-message {
-            background: rgba(249, 58, 55, 0.1);
+            background: rgba(239, 68, 68, 0.1);
             border: 1px solid var(--danger-color);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 8px;
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 12px;
             font-size: 13px;
             color: var(--danger-color);
+        }
+
+        .metrics-display {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .metric-item {
+            padding: 3px 8px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                z-index: 1000;
+                height: 100vh;
+            }
+
+            .sidebar.open {
+                transform: translateX(280px);
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+
+            .welcome-title {
+                font-size: 32px;
+            }
+
+            .example-prompts {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -409,49 +633,79 @@
     <div class="app-container">
         <div class="sidebar">
             <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <div class="logo-text">Aasai</div>
+                </div>
                 <button class="new-chat-btn" id="newChatBtn">
-                    ✨ New Chat
+                    <span>✨</span>
+                    <span>New Conversation</span>
                 </button>
             </div>
             <div class="chat-history" id="chatHistory"></div>
             <div class="sidebar-footer">
                 <div class="user-info">
-                    <span>👤</span>
-                    <span>Guest User</span>
+                    <div class="user-avatar">G</div>
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-primary);">Guest User</div>
+                        <div style="font-size: 12px;">Sales Consultant</div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="main-content">
             <div class="chat-header">
-                <h2>EduAI Assistant</h2>
+                <div class="header-left">
+                    <div>
+                        <div class="header-title">Aasai Sales Agent AI</div>
+                        <div class="header-subtitle">Your AI-Powered Sales Consultant</div>
+                    </div>
+                </div>
                 <select class="model-selector" id="modelSelector">
-                    <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash (Fast)</option>
+                    <option value="gemini-2.0-flash-exp">⚡ Gemini 2.0 Flash (Recommended)</option>
                     <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
                     <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
                 </select>
             </div>
 
             <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-title">Welcome to EduAI! 👋</div>
-                <div class="welcome-subtitle">Your intelligent learning assistant</div>
+                <div class="welcome-title">Welcome to Aasai! 👋</div>
+                <div class="welcome-subtitle">
+                    Your intelligent sales consultant for the Aasai RAG Platform.<br>
+                    Ask me anything about features, pricing, demos, or implementation.
+                </div>
                 
                 <div class="example-prompts">
-                    <div class="example-prompt" data-prompt="Explain photosynthesis in simple words">
-                        <div class="example-prompt-title">🌱 Learn Science</div>
-                        <div class="example-prompt-text">Explain photosynthesis in simple words</div>
+                    <div class="example-prompt" data-prompt="What is Aasai RAG Platform and how is it different from other AI chatbots?">
+                        <div class="example-prompt-icon">🚀</div>
+                        <div class="example-prompt-title">Platform Overview</div>
+                        <div class="example-prompt-text">Learn what makes Aasai unique</div>
                     </div>
-                    <div class="example-prompt" data-prompt="Solve: If x + 5 = 10, what is x?">
-                        <div class="example-prompt-title">🔢 Solve Math</div>
-                        <div class="example-prompt-text">Help me solve a math problem</div>
+                    <div class="example-prompt" data-prompt="What are the key features of Aasai? Tell me about the router-based intelligence and cost optimization.">
+                        <div class="example-prompt-icon">⚙️</div>
+                        <div class="example-prompt-title">Key Features</div>
+                        <div class="example-prompt-text">Explore Aasai's capabilities</div>
                     </div>
-                    <div class="example-prompt" data-prompt="What are Newton's three laws of motion?">
-                        <div class="example-prompt-title">📚 Study Physics</div>
-                        <div class="example-prompt-text">Learn about Newton's laws</div>
+                    <div class="example-prompt" data-prompt="What is the pricing for schools and colleges? Tell me about the student plan.">
+                        <div class="example-prompt-icon">💰</div>
+                        <div class="example-prompt-title">Pricing Details</div>
+                        <div class="example-prompt-text">Get transparent pricing info</div>
                     </div>
-                    <div class="example-prompt" data-prompt="Explain the water cycle">
-                        <div class="example-prompt-title">🌊 Geography</div>
-                        <div class="example-prompt-text">Understand the water cycle</div>
+                    <div class="example-prompt" data-prompt="How does Aasai ensure security and compliance? Can you explain the backend-controlled data access?">
+                        <div class="example-prompt-icon">🔒</div>
+                        <div class="example-prompt-title">Security & Compliance</div>
+                        <div class="example-prompt-text">Understand our security model</div>
+                    </div>
+                    <div class="example-prompt" data-prompt="How scalable is Aasai? Can it handle millions of students?">
+                        <div class="example-prompt-icon">📈</div>
+                        <div class="example-prompt-title">Scalability</div>
+                        <div class="example-prompt-text">Learn about scale capabilities</div>
+                    </div>
+                    <div class="example-prompt" data-prompt="I want to see a demo. How can we schedule one?">
+                        <div class="example-prompt-icon">🎯</div>
+                        <div class="example-prompt-title">Request Demo</div>
+                        <div class="example-prompt-text">Schedule a personalized demo</div>
                     </div>
                 </div>
             </div>
@@ -463,26 +717,32 @@
                     <textarea 
                         id="messageInput" 
                         class="message-input" 
-                        placeholder="Ask me anything about your studies..."
+                        placeholder="Ask me anything about Aasai RAG Platform..."
                         rows="1"
                     ></textarea>
-                    <button id="sendBtn" class="send-btn" disabled>Send</button>
+                    <button id="sendBtn" class="send-btn" disabled>
+                        <span>Send</span>
+                        <span>→</span>
+                    </button>
                 </div>
-                <div class="status-indicator" style="margin-top: 8px; justify-content: center;">
+                <div class="status-indicator">
                     <span class="status-dot"></span>
-                    <span id="statusText">Ready</span>
+                    <span id="statusText">Ready to help</span>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ⚠️ IMPORTANT: Replace this with your actual Lambda API endpoint
+        // ⚠️ IMPORTANT: Replace with your actual Lambda API endpoint
         const API_URL = 'https://yemexr3ibd.execute-api.ap-southeast-2.amazonaws.com/default/gemini-conversational-salesagent-aasaitech';
-        // State
+        
+        // State management
         let conversationHistory = [];
-        let currentChatId = generateId();
+        let currentSessionId = generateSessionId();
         let isTyping = false;
+        let totalTokensUsed = 0;
+        let totalCost = 0;
 
         // DOM Elements
         const messageInput = document.getElementById('messageInput');
@@ -525,6 +785,7 @@
             const message = messageInput.value.trim();
             if (!message || isTyping) return;
 
+            // Show chat interface if first message
             if (welcomeScreen.style.display !== 'none') {
                 welcomeScreen.style.display = 'none';
                 chatMessages.style.display = 'flex';
@@ -547,16 +808,10 @@
             showTypingIndicator();
 
             try {
-                updateStatus('Sending to API...', 'loading');
+                updateStatus('Processing your request...', 'loading');
 
                 console.log('Sending request to:', API_URL);
-                console.log('Request payload:', {
-                    message: message,
-                    conversationHistory: conversationHistory.slice(0, -1),
-                    model: modelSelector.value,
-                    temperature: 0.7,
-                    maxTokens: 2048
-                });
+                console.log('Session ID:', currentSessionId);
 
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -568,12 +823,12 @@
                         conversationHistory: conversationHistory.slice(0, -1),
                         model: modelSelector.value,
                         temperature: 0.7,
-                        maxTokens: 2048
+                        maxTokens: 2048,
+                        sessionId: currentSessionId
                     })
                 });
 
                 console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
 
                 hideTypingIndicator();
 
@@ -593,6 +848,7 @@
                         content: data.message,
                         timestamp: data.metadata.timestamp,
                         confidence: data.confidence,
+                        quality: data.quality,
                         cached: data.metadata.cached,
                         sources: data.sources || [],
                         metadata: data.metadata
@@ -600,7 +856,16 @@
 
                     conversationHistory.push(assistantMessage);
                     displayMessage(assistantMessage);
-                    updateStatus('Response received in ' + data.metadata.duration + 'ms', 'success');
+
+                    // Update metrics
+                    if (data.metadata.tokens) {
+                        totalTokensUsed += data.metadata.tokens.total;
+                    }
+                    if (data.metadata.cost) {
+                        totalCost += data.metadata.cost.total;
+                    }
+
+                    updateStatus(`Response in ${data.metadata.duration}ms • Quality: ${data.quality}/100`, 'success');
                 } else {
                     throw new Error(data.error || 'Failed to get response');
                 }
@@ -612,9 +877,10 @@
                 const errorMessage = {
                     id: generateId(),
                     role: 'assistant',
-                    content: '❌ Sorry, I encountered an error: ' + error.message + '\n\nPlease check:\n• Your API endpoint is correct\n• Your Lambda function is deployed\n• CORS is configured properly\n• Your Gemini API key is set in Lambda environment variables',
+                    content: '<div><h3>❌ Error</h3><p>Sorry, I encountered an error: ' + escapeHtml(error.message) + '</p><p>Please check your API configuration and try again.</p></div>',
                     timestamp: new Date().toISOString(),
                     confidence: 0,
+                    quality: 0,
                     cached: false,
                     sources: []
                 };
@@ -632,7 +898,7 @@
             if (message.role === 'user') {
                 messageElement.innerHTML = 
                     '<div class="message-content">' + 
-                        formatMessageContent(message.content) + 
+                        escapeHtml(message.content) + 
                     '</div>' +
                     '<div class="message-avatar">U</div>';
             } else {
@@ -647,28 +913,43 @@
                     confidenceText = 'Medium';
                 }
 
-                let sourcesHtml = '';
-                if (message.sources && message.sources.length > 0) {
-                    sourcesHtml = '<div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-color); font-size: 12px; color: var(--text-secondary);">' +
-                        '<strong>Sources:</strong><br>' +
-                        message.sources.slice(0, 3).map(function(source) {
-                            return '• ' + (source.snippet || 'Reference material');
-                        }).join('<br>') +
+                let metricsHtml = '';
+                if (message.metadata) {
+                    const metrics = [];
+                    
+                    if (message.metadata.duration) {
+                        metrics.push(`⚡ ${message.metadata.duration}ms`);
+                    }
+                    
+                    if (message.metadata.tokens && message.metadata.tokens.total) {
+                        metrics.push(`🎯 ${message.metadata.tokens.total} tokens`);
+                    }
+                    
+                    if (message.metadata.cost && message.metadata.cost.total > 0) {
+                        metrics.push(`💰 $${message.metadata.cost.total.toFixed(6)}`);
+                    }
+                    
+                    if (metrics.length > 0) {
+                        metricsHtml = '<div class="metrics-display">' +
+                            metrics.map(m => '<span class="metric-item">' + m + '</span>').join('') +
                         '</div>';
+                    }
                 }
 
                 messageElement.innerHTML = 
                     '<div class="message-avatar">AI</div>' +
                     '<div class="message-content">' +
-                        formatMessageContent(message.content) +
+                        message.content + // HTML content from backend
                         (message.confidence !== undefined ? '<div class="message-meta">' +
                             '<span class="confidence-badge ' + confidenceClass + '">' +
-                                confidenceText + ' confidence (' + Math.round(message.confidence * 100) + '%)' +
+                                '🎯 ' + confidenceText + ' (' + Math.round(message.confidence * 100) + '%)' +
                             '</span>' +
-                            (message.cached ? '<span>🔋 Cached</span>' : '<span>🔄 Live</span>') +
-                            (message.metadata ? '<span>' + message.metadata.duration + 'ms</span>' : '') +
+                            (message.quality !== undefined ? '<span class="quality-badge">' +
+                                '⭐ Quality: ' + message.quality + '/100' +
+                            '</span>' : '') +
+                            (message.cached ? '<span style="color: var(--success-color)">🔋 Cached</span>' : '<span style="color: var(--warning-color)">🔄 Live</span>') +
                         '</div>' : '') +
-                        sourcesHtml +
+                        metricsHtml +
                     '</div>';
             }
 
@@ -705,16 +986,6 @@
             }
         }
 
-        function formatMessageContent(content) {
-            return escapeHtml(content)
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/\n/g, '<br>')
-                .replace(/^/, '<p>')
-                .replace(/$/, '</p>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>');
-        }
-
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
@@ -726,25 +997,29 @@
             
             const statusDot = document.querySelector('.status-dot');
             if (type === 'loading') {
-                statusDot.style.background = '#ffc107';
+                statusDot.style.background = var(--warning-color);
             } else if (type === 'error') {
-                statusDot.style.background = '#f93a37';
+                statusDot.style.background = var(--danger-color);
             } else if (type === 'success') {
-                statusDot.style.background = '#10a37f';
+                statusDot.style.background = var(--success-color);
             } else {
-                statusDot.style.background = '#10a37f';
+                statusDot.style.background = var(--success-color);
             }
 
             if (type !== 'normal') {
                 setTimeout(function() {
-                    statusText.textContent = 'Ready';
-                    statusDot.style.background = '#10a37f';
-                }, 3000);
+                    statusText.textContent = 'Ready to help';
+                    statusDot.style.background = var(--success-color);
+                }, 4000);
             }
         }
 
         function generateId() {
             return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+
+        function generateSessionId() {
+            return 'session_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2);
         }
 
         function autoResize(textarea) {
@@ -753,13 +1028,16 @@
         }
 
         function startNewChat() {
-            currentChatId = generateId();
+            currentSessionId = generateSessionId();
             conversationHistory = [];
             chatMessages.innerHTML = '';
             chatMessages.style.display = 'none';
             welcomeScreen.style.display = 'flex';
             messageInput.value = '';
             sendBtn.disabled = true;
+            totalTokensUsed = 0;
+            totalCost = 0;
+            updateStatus('Ready to help', 'normal');
         }
 
         function sendExamplePrompt(prompt) {
@@ -770,10 +1048,14 @@
 
         // Initialization
         window.addEventListener('load', function() {
-            console.log('EduAI Loaded');
+            console.log('Aasai Sales Agent Loaded');
             console.log('API URL:', API_URL);
-            updateStatus('Ready', 'normal');
+            console.log('Session ID:', currentSessionId);
+            updateStatus('Ready to help', 'normal');
         });
+
+        // Auto-focus input on load
+        messageInput.focus();
     </script>
 </body>
 </html>
